@@ -1,0 +1,44 @@
+GUILD GLORY — TELEGRAM CONTROL SETUP
+
+1. Create a Telegram bot using @BotFather and copy its token.
+2. Set environment variables before starting app.py:
+   TELEGRAM_BOT_TOKEN=your_bot_token
+   TELEGRAM_ADMIN_IDS=your_numeric_telegram_user_id
+   Multiple admin IDs can be comma-separated.
+3. Install dependencies:
+   pip install -r requirements.txt
+4. Start the project:
+   python app.py
+5. Open the bot in Telegram and send /start.
+
+TELEGRAM INLINE DASHBOARD
+- The main control panel uses Telegram inline buttons.
+- Admin dashboard includes Live Dashboard, Accounts, Add UID Account, Add Token,
+  Pause/Resume, Live Logs, Refresh/Restart, Delete Account, Guild Info, Clan Join,
+  Auto Guild Join, Settings, and Help & Support.
+- Non-admin users can access the Auto Guild Join wizard only.
+
+AUTO GUILD JOIN WIZARD
+- Tap Auto Guild Join.
+- Either upload a UTF-8 .txt file OR paste a multiline list directly into Telegram.
+- Format: one UID:PASSWORD pair per line.
+- Send the numeric Guild ID after accounts are accepted.
+- Live progress shows processed count, JWT successes/failures, join requests,
+  HTTP 200 responses, network errors, and the final per-account summary.
+- Maximum 100 unique accounts per run; malformed rows and duplicate UIDs are skipped.
+- Wizard credentials are held in memory and are not written to a file.
+- The JWT generation service receives each UID/password pair. Only use accounts you
+  own or are authorized to use, and do not send credentials to an untrusted bot.
+
+COMMANDS
+/status, /accounts, /logs
+/add UID PASSWORD, /token TOKEN, /delete UID
+/pause UID, /pauseall, /refresh UID, /restart UID
+/clanjoin CLAN_ID, /guild CLAN_ID REGION, /cancel
+
+SECURITY
+- Only Telegram IDs listed in TELEGRAM_ADMIN_IDS can use admin controls.
+- Keep TELEGRAM_BOT_TOKEN private and set it as an environment variable.
+- This ZIP intentionally includes an empty token_cache.json; old cached session tokens
+  were excluded from the distributable for account safety. The app can rebuild its cache.
+- Telegram/API live behavior still needs to be tested in your own deployment.
